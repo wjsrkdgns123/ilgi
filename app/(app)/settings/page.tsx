@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { TopBar } from "@/components/nav/top-bar";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { LogoutButton } from "@/components/settings/logout-button";
@@ -73,6 +74,29 @@ export default async function SettingsPage() {
             세션
           </p>
           <LogoutButton />
+        </section>
+
+        {/* 법적 */}
+        <section className="flex flex-col gap-2">
+          <p className="text-xs text-muted-foreground uppercase tracking-wider px-1">
+            정보
+          </p>
+          <div className="rounded-lg border border-border bg-card divide-y divide-border">
+            <Link
+              href="/privacy"
+              className="flex items-center justify-between px-4 py-3 text-sm hover:bg-muted/30 transition-colors"
+            >
+              <span>개인정보처리방침</span>
+              <span className="text-muted-foreground">→</span>
+            </Link>
+            <Link
+              href="/terms"
+              className="flex items-center justify-between px-4 py-3 text-sm hover:bg-muted/30 transition-colors"
+            >
+              <span>이용약관</span>
+              <span className="text-muted-foreground">→</span>
+            </Link>
+          </div>
         </section>
 
         <p className="text-center text-xs text-muted-foreground/60 mt-4 pb-4">
