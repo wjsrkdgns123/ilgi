@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Check, MessageSquare, MessageSquareText } from "lucide-react";
 
 import { toggleHabitLog, saveHabitNote } from "@/lib/habits";
+import { hapticTap, hapticSuccess, hapticError } from "@/lib/haptics";
 import type { Habit } from "@/types/db";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -72,11 +73,13 @@ export function TodayHabits({ habits, logs }: Props) {
         const hasNote = !!log?.note;
 
         function handleToggle() {
+          hapticTap();
           startTransition(async () => {
             addOptimistic(habit.id);
             try {
               await toggleHabitLog(habit.id);
             } catch (err) {
+              hapticError();
               toast.error(
                 err instanceof Error
                   ? err.message
@@ -166,9 +169,11 @@ function NoteButton({
     setSaving(true);
     try {
       await saveHabitNote(habitId, note);
+      hapticSuccess();
       toast.success("기록했어");
       setOpen(false);
     } catch (err) {
+      hapticError();
       toast.error(err instanceof Error ? err.message : "저장 실패");
     } finally {
       setSaving(false);
@@ -214,6 +219,7 @@ function NoteButton({
             placeholder="어땠어?"
             maxLength={200}
             rows={3}
+            autoFocus
             className="text-base resize-none"
           />
           <div className="flex justify-between items-center text-xs text-muted-foreground">

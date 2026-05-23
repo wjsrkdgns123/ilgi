@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { TopBar } from "@/components/nav/top-bar";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { LogoutButton } from "@/components/settings/logout-button";
 import { ExportDataButton } from "@/components/settings/export-data-button";
 import { InstallGuide } from "@/components/settings/install-guide";
+import { MascotImage } from "@/components/mascot-image";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function SettingsPage() {
@@ -18,14 +18,7 @@ export default async function SettingsPage() {
       <main className="max-w-md mx-auto px-4 py-4 flex flex-col gap-8">
         {/* 잠자는 삐롱이 — 설정 화면의 시그니처 */}
         <div className="flex flex-col items-center gap-2 pt-4">
-          <Image
-            src="/bbirong/sleep.png"
-            alt="자고 있는 삐롱이"
-            width={100}
-            height={100}
-            priority
-            className="select-none"
-          />
+          <MascotImage mood="sleep" size={100} priority alt="자고 있는 삐롱이" />
           <p className="text-xs text-muted-foreground">
             삐롱이는 여기서 자고 있어
           </p>

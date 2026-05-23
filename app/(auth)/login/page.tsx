@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { AuthForm } from "@/components/auth/auth-form";
+import { MascotImage } from "@/components/mascot-image";
 
 export default function LoginPage() {
   return (
@@ -17,13 +17,11 @@ export default function LoginPage() {
               className="absolute inset-0 rounded-full bg-accent/30 blur-2xl"
               aria-hidden
             />
-            <Image
-              src="/bbirong/normal.png"
-              alt="삐롱이"
-              width={140}
-              height={140}
+            <MascotImage
+              mood="normal"
+              size={140}
               priority
-              className="relative select-none"
+              className="relative"
             />
           </div>
           <div>

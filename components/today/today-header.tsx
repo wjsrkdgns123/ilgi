@@ -1,11 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { Flame } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-
-type Mood = "normal" | "happy" | "pouting" | "celebrate";
+import { MascotImage, type Mood } from "@/components/mascot-image";
 
 interface Props {
   greeting: string;
@@ -44,14 +42,7 @@ export function TodayHeader({
   return (
     <header className="flex flex-col items-center pt-8 pb-6 text-center">
       <div className="relative mb-4">
-        <Image
-          src={`/bbirong/${mood}.png`}
-          alt={`삐롱이 (${mood})`}
-          width={140}
-          height={140}
-          priority
-          className="select-none"
-        />
+        <MascotImage mood={mood} size={140} priority />
         {streak >= 2 && (
           <span
             className={cn(
