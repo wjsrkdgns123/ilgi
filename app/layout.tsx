@@ -5,8 +5,11 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
-// 프로덕션 도메인 — Vercel 배포 후 실제 도메인으로 교체
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://bbirong.vercel.app";
+// 프로덕션 도메인.
+// 우선순위: NEXT_PUBLIC_SITE_URL (env) > 하드코딩 fallback.
+// 커스텀 도메인 적용 시 fallback도 같이 갱신 권장.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ilgi-lime.vercel.app";
 const OG_DESCRIPTION =
   "삐롱이가 매일 너를 기다려. 수달 마스코트가 감정으로 챙겨주는 습관 트래커.";
 
