@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { MascotImage } from "@/components/mascot-image";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "찾을 수 없는 페이지 · 삐롱",
@@ -21,12 +22,21 @@ export default function NotFound() {
       <p className="text-xs text-muted-foreground/70 mb-8">404 · Not Found</p>
 
       <div className="flex flex-col gap-2 w-full max-w-xs">
-        <Button asChild className="w-full">
-          <Link href="/today">오늘로 돌아가기</Link>
-        </Button>
-        <Button asChild variant="ghost" className="w-full">
-          <Link href="/login">로그인 페이지로</Link>
-        </Button>
+        <Link
+          href="/today"
+          className={cn(buttonVariants({ size: "lg" }), "h-11 w-full")}
+        >
+          오늘로 돌아가기
+        </Link>
+        <Link
+          href="/login"
+          className={cn(
+            buttonVariants({ variant: "ghost", size: "lg" }),
+            "h-11 w-full",
+          )}
+        >
+          로그인 페이지로
+        </Link>
       </div>
     </main>
   );

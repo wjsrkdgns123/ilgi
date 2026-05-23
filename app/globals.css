@@ -148,3 +148,37 @@
   .pl-safe { padding-left: env(safe-area-inset-left); }
   .pr-safe { padding-right: env(safe-area-inset-right); }
 }
+
+/* ============================================
+ * 마스코트 체크 애니메이션 — 사업계획 §2 "마스코트 정서 연결"
+ * 체크 시 살짝 점프 + 흔들림 (bouncy spring 느낌)
+ * ============================================ */
+@keyframes bbirong-bump {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.12) rotate(-4deg);
+  }
+  50% {
+    transform: scale(1.05) rotate(3deg);
+  }
+  75% {
+    transform: scale(1.08) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-bbirong-bump {
+  animation: bbirong-bump 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center bottom;
+}
+
+/* prefers-reduced-motion 존중 — 멀미 있는 사용자/접근성 설정 */
+@media (prefers-reduced-motion: reduce) {
+  .animate-bbirong-bump {
+    animation: none;
+  }
+}
