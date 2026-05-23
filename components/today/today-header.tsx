@@ -62,8 +62,11 @@ export function TodayHeader({
     <header className="flex flex-col items-center pt-8 pb-6 text-center">
       <div className="relative mb-4">
         {/* 마스코트만 애니메이션. streak 배지는 흔들리지 않게 별도 div */}
-        <div className={cn(bumped && "animate-bbirong-bump")}>
-          <MascotImage mood={mood} size={140} priority />
+        {/* nested: outer = 호흡 (always), inner = bump (체크 시) */}
+        <div className="animate-bbirong-breathe">
+          <div className={cn(bumped && "animate-bbirong-bump")}>
+            <MascotImage mood={mood} size={140} priority />
+          </div>
         </div>
         {streak >= 2 && (
           <span

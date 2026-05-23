@@ -150,9 +150,32 @@
 }
 
 /* ============================================
- * 마스코트 체크 애니메이션 — 사업계획 §2 "마스코트 정서 연결"
- * 체크 시 살짝 점프 + 흔들림 (bouncy spring 느낌)
+ * 마스코트 애니메이션 — 사업계획 §2 "마스코트 정서 연결"
+ *
+ * 두 레이어:
+ *   1) breathe (always-on): 살아있는 느낌, 4초 호흡
+ *   2) bump (on check): 체크 시 점프 + 흔들림
+ *
+ * 두 애니메이션은 nested div로 분리되어 transform이 곱셈 합성됨.
  * ============================================ */
+
+/* 1) idle breathing — 항상 작동, 살아있는 느낌 */
+@keyframes bbirong-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.028);
+  }
+}
+
+.animate-bbirong-breathe {
+  animation: bbirong-breathe 4s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+/* 2) check bump — 체크 시 bouncy spring */
 @keyframes bbirong-bump {
   0% {
     transform: scale(1) rotate(0deg);
@@ -178,6 +201,7 @@
 
 /* prefers-reduced-motion 존중 — 멀미 있는 사용자/접근성 설정 */
 @media (prefers-reduced-motion: reduce) {
+  .animate-bbirong-breathe,
   .animate-bbirong-bump {
     animation: none;
   }

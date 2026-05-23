@@ -17,12 +17,9 @@ export default function LoginPage() {
               className="absolute inset-0 rounded-full bg-accent/30 blur-2xl"
               aria-hidden
             />
-            <MascotImage
-              mood="normal"
-              size={140}
-              priority
-              className="relative"
-            />
+            <div className="relative animate-bbirong-breathe">
+              <MascotImage mood="normal" size={140} priority />
+            </div>
           </div>
           <div>
             <h1 className="text-5xl font-bold tracking-tight font-heading">
