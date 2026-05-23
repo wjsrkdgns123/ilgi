@@ -32,19 +32,22 @@ export function HabitRow({ habit, onClick }: HabitRowProps) {
     >
       <div
         className={cn(
-          "size-10 rounded-full bg-muted flex items-center justify-center text-xl shrink-0",
+          "size-12 rounded-full bg-secondary/70 flex items-center justify-center text-2xl shrink-0",
         )}
         aria-hidden
       >
         {habit.emoji || "•"}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium truncate">{habit.title}</p>
+        <p className="text-base font-medium truncate">{habit.title}</p>
         <p className="text-xs text-muted-foreground mt-0.5">
           {frequencyLabel(habit)}
         </p>
       </div>
-      <ChevronRight className="size-4 text-muted-foreground shrink-0" />
+      <ChevronRight
+        className="size-4 text-muted-foreground/60 shrink-0"
+        strokeWidth={1.75}
+      />
     </button>
   );
 }

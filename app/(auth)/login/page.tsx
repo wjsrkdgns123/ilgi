@@ -10,25 +10,31 @@ export default function LoginPage() {
       </div>
 
       <div className="flex-1 flex flex-col justify-center max-w-sm w-full mx-auto">
-        <div className="flex flex-col items-center gap-3 mb-10 text-center">
-          {/* 마스코트 자리 — 사용자가 PNG 준비 후 자동 표시 */}
-          <Image
-            src="/bbirong/normal.png"
-            alt="삐롱이"
-            width={100}
-            height={100}
-            priority
-            // 파일 없으면 alt 텍스트만 표시되고 레이아웃은 유지
-          />
+        <div className="flex flex-col items-center gap-4 mb-10 text-center">
+          {/* 마스코트 — 첫 인상의 핵심 */}
+          <div className="relative">
+            <div
+              className="absolute inset-0 rounded-full bg-accent/30 blur-2xl"
+              aria-hidden
+            />
+            <Image
+              src="/bbirong/normal.png"
+              alt="삐롱이"
+              width={140}
+              height={140}
+              priority
+              className="relative select-none"
+            />
+          </div>
           <div>
-            <h1 className="text-4xl font-bold tracking-tight font-heading">
+            <h1 className="text-5xl font-bold tracking-tight font-heading">
               삐롱
             </h1>
             {/* eslint-disable-next-line no-restricted-syntax -- 의도된 사용: "갓생 말고" 슬로건은 갓생을 반대하는 포지셔닝 */}
-            <p className="text-base text-foreground/80 mt-2 font-medium">
+            <p className="text-lg text-foreground/85 mt-3 font-semibold">
               갓생 말고 평범한 매일
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-muted-foreground mt-1.5">
               삐롱이가 매일 너를 기다려요
             </p>
           </div>

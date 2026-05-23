@@ -4,11 +4,10 @@ import * as React from "react";
 import { useTransition, useOptimistic, useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { MessageSquare, MessageSquareText } from "lucide-react";
+import { Check, MessageSquare, MessageSquareText } from "lucide-react";
 
 import { toggleHabitLog, saveHabitNote } from "@/lib/habits";
 import type { Habit } from "@/types/db";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -72,45 +71,65 @@ export function TodayHabits({ habits, logs }: Props) {
         const checked = !!log;
         const hasNote = !!log?.note;
 
+        function handleToggle() {
+          startTransition(async () => {
+            addOptimistic(habit.id);
+            try {
+              await toggleHabitLog(habit.id);
+            } catch (err) {
+              toast.error(
+                err instanceof Error
+                  ? err.message
+                  : "체크 실패. 다시 시도해줘.",
+              );
+            }
+          });
+        }
+
         return (
           <li
             key={habit.id}
             className={cn(
-              "flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3.5 transition-colors",
+              "flex items-stretch rounded-xl border border-border bg-card transition-colors overflow-hidden",
               checked && "bg-secondary/50",
             )}
           >
-            <Checkbox
-              checked={checked}
-              onCheckedChange={() => {
-                startTransition(async () => {
-                  addOptimistic(habit.id);
-                  try {
-                    await toggleHabitLog(habit.id);
-                  } catch (err) {
-                    toast.error(
-                      err instanceof Error
-                        ? err.message
-                        : "체크 실패. 다시 시도해줘.",
-                    );
-                  }
-                });
-              }}
+            {/* 행 전체가 토글 영역. iOS 권장 44px 이상 hit area 보장 */}
+            <button
+              type="button"
+              onClick={handleToggle}
               disabled={isPending}
-              className="size-6"
-              aria-label={`${habit.title} 체크`}
-            />
-            <span className="text-xl select-none" aria-hidden>
-              {habit.emoji ?? "✨"}
-            </span>
-            <span
+              aria-pressed={checked}
+              aria-label={`${habit.title} ${checked ? "체크 해제" : "체크"}`}
               className={cn(
-                "flex-1 text-sm font-medium truncate",
-                checked && "line-through text-muted-foreground",
+                "flex-1 min-w-0 flex items-center gap-3 px-4 py-4 text-left",
+                "transition-colors active:bg-muted/40 disabled:opacity-70",
               )}
             >
-              {habit.title}
-            </span>
+              <span
+                className={cn(
+                  "size-7 rounded-full border-2 flex items-center justify-center shrink-0 transition-all",
+                  checked
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-input bg-transparent",
+                )}
+                aria-hidden
+              >
+                {checked && <Check className="size-4" strokeWidth={3} />}
+              </span>
+              <span className="text-2xl select-none shrink-0" aria-hidden>
+                {habit.emoji ?? "✨"}
+              </span>
+              <span
+                className={cn(
+                  "flex-1 min-w-0 text-base font-medium truncate",
+                  checked && "line-through text-muted-foreground",
+                )}
+              >
+                {habit.title}
+              </span>
+            </button>
+            {/* 노트 버튼은 별도 hit area */}
             <NoteButton
               key={`note-${habit.id}-${log?.note ?? ""}`}
               habitId={habit.id}
@@ -164,16 +183,16 @@ function NoteButton({
         disabled={disabled}
         aria-label={hasNote ? "한 줄 메모 보기/수정" : "한 줄 메모 추가"}
         className={cn(
-          "p-2 rounded-lg transition-colors",
+          "shrink-0 px-4 flex items-center justify-center border-l border-border transition-colors",
           disabled
             ? "opacity-40 cursor-not-allowed"
-            : "hover:bg-muted active:bg-muted/70",
+            : "hover:bg-muted/60 active:bg-muted",
         )}
       >
         {hasNote ? (
-          <MessageSquareText className="size-4 text-primary" />
+          <MessageSquareText className="size-5 text-primary" />
         ) : (
-          <MessageSquare className="size-4 text-muted-foreground" />
+          <MessageSquare className="size-5 text-muted-foreground" />
         )}
       </button>
 

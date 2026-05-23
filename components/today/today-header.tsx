@@ -65,7 +65,8 @@ export function TodayHeader({
       </div>
       <h1 className="text-2xl font-bold tracking-tight mb-1">{greeting}</h1>
       <p className="text-sm text-muted-foreground">
-        {date} · {total === 0 ? "오늘 할 일 없음" : `${completed}/${total} 완료`}
+        {date} ·{" "}
+        {total === 0 ? "오늘은 쉬는 날이야" : `${completed}/${total} 완료`}
       </p>
     </header>
   );
