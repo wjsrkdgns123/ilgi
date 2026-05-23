@@ -34,3 +34,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Serwist / PWA generated files (regenerated on every build)
+/public/sw.js
+/public/sw.js.map
+/public/swe-worker-*.js
+/public/workbox-*.js
+/public/workbox-*.js.map
+
+# IDE / editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# OS
+Thumbs.db

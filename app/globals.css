@@ -1,27 +1,150 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: "Pretendard Variable", "Pretendard", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-heading: "Pretendard Variable", "Pretendard", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+/* ============================================
+ * 라이트 모드 (기본) — 크림 베이지 + 따뜻한 갈색
+ * - 메인 #F5E6D3 (크림 베이지) → muted/secondary 톤
+ * - 서브 #C9956C (따뜻한 갈색) → primary
+ * - 포인트 #FFB5C0 (분홍) → accent (축하/streak)
+ * ============================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(0.98 0.012 80);          /* 거의 흰 — 약한 크림 */
+  --foreground: oklch(0.27 0.035 55);          /* 짙은 따뜻한 갈색 */
+  --card: oklch(1 0 0);                         /* 순백 — 카드 떠보이게 */
+  --card-foreground: oklch(0.27 0.035 55);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.27 0.035 55);
+  --primary: oklch(0.65 0.09 55);              /* #C9956C 따뜻한 갈색 */
+  --primary-foreground: oklch(0.99 0.005 90);  /* 거의 흰 */
+  --secondary: oklch(0.92 0.04 78);            /* #F5E6D3 크림 베이지 */
+  --secondary-foreground: oklch(0.27 0.035 55);
+  --muted: oklch(0.95 0.025 80);               /* 더 옅은 크림 */
+  --muted-foreground: oklch(0.5 0.04 55);      /* 중간 갈색 */
+  --accent: oklch(0.83 0.08 11);               /* #FFB5C0 분홍 — 포인트 */
+  --accent-foreground: oklch(0.3 0.05 25);     /* 짙은 와인 */
+  --destructive: oklch(0.6 0.22 27);
+  --border: oklch(0.88 0.025 78);              /* 옅은 베이지 라인 */
+  --input: oklch(0.88 0.025 78);
+  --ring: oklch(0.65 0.09 55);                 /* primary와 동일 */
+  --chart-1: oklch(0.65 0.09 55);
+  --chart-2: oklch(0.83 0.08 11);
+  --chart-3: oklch(0.7 0.1 130);
+  --chart-4: oklch(0.7 0.1 230);
+  --chart-5: oklch(0.7 0.12 290);
+  --radius: 0.875rem;                          /* 약간 더 둥글게 — 친근함 */
+  --sidebar: oklch(0.97 0.02 80);
+  --sidebar-foreground: oklch(0.27 0.035 55);
+  --sidebar-primary: oklch(0.65 0.09 55);
+  --sidebar-primary-foreground: oklch(0.99 0.005 90);
+  --sidebar-accent: oklch(0.92 0.04 78);
+  --sidebar-accent-foreground: oklch(0.27 0.035 55);
+  --sidebar-border: oklch(0.88 0.025 78);
+  --sidebar-ring: oklch(0.65 0.09 55);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ============================================
+ * 다크 모드 — 코지한 밤 (수달이 자는 밤)
+ * 짙은 따뜻한 갈색 배경 + 크림 텍스트 + 분홍 강조
+ * ============================================ */
+.dark {
+  --background: oklch(0.2 0.022 55);           /* 짙은 따뜻한 갈색 */
+  --foreground: oklch(0.94 0.025 78);          /* 크림 (#F5E6D3 톤) */
+  --card: oklch(0.25 0.022 55);                /* 약간 밝은 카드 */
+  --card-foreground: oklch(0.94 0.025 78);
+  --popover: oklch(0.25 0.022 55);
+  --popover-foreground: oklch(0.94 0.025 78);
+  --primary: oklch(0.83 0.08 11);              /* 분홍 — 다크에서 환하게 */
+  --primary-foreground: oklch(0.2 0.022 55);
+  --secondary: oklch(0.32 0.025 55);
+  --secondary-foreground: oklch(0.94 0.025 78);
+  --muted: oklch(0.3 0.025 55);
+  --muted-foreground: oklch(0.7 0.03 65);
+  --accent: oklch(0.68 0.09 55);               /* 갈색 — 다크 액센트 */
+  --accent-foreground: oklch(0.99 0.005 90);
+  --destructive: oklch(0.7 0.2 22);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.83 0.08 11);
+  --chart-1: oklch(0.83 0.08 11);
+  --chart-2: oklch(0.7 0.1 55);
+  --chart-3: oklch(0.7 0.1 130);
+  --chart-4: oklch(0.7 0.1 230);
+  --chart-5: oklch(0.7 0.12 290);
+  --sidebar: oklch(0.25 0.022 55);
+  --sidebar-foreground: oklch(0.94 0.025 78);
+  --sidebar-primary: oklch(0.83 0.08 11);
+  --sidebar-primary-foreground: oklch(0.2 0.022 55);
+  --sidebar-accent: oklch(0.32 0.025 55);
+  --sidebar-accent-foreground: oklch(0.94 0.025 78);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.83 0.08 11);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    @apply font-sans;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  /* iOS PWA safe area helpers */
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pl-safe { padding-left: env(safe-area-inset-left); }
+  .pr-safe { padding-right: env(safe-area-inset-right); }
 }

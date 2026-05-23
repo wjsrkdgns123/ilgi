@@ -1,3 +1,28 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/갓생|성공|완벽|달성|화이팅/]",
+        "message": "삐롱 톤 규칙 위반: '갓생/성공/완벽/달성/화이팅' 단어 금지 (사업계획 §7). 대신 '괜찮아/다시/오늘만/조금씩' 류 사용."
+      },
+      {
+        "selector": "JSXText[value=/갓생|성공|완벽|달성|화이팅/]",
+        "message": "삐롱 톤 규칙 위반: '갓생/성공/완벽/달성/화이팅' 단어 금지 (사업계획 §7). 대신 '괜찮아/다시/오늘만/조금씩' 류 사용."
+      },
+      {
+        "selector": "TemplateElement[value.raw=/갓생|성공|완벽|달성|화이팅/]",
+        "message": "삐롱 톤 규칙 위반: '갓생/성공/완벽/달성/화이팅' 단어 금지 (사업계획 §7). 대신 '괜찮아/다시/오늘만/조금씩' 류 사용."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["docs/**/*.md", "CLAUDE.md"],
+      "rules": {
+        "no-restricted-syntax": "off"
+      }
+    }
+  ]
 }
